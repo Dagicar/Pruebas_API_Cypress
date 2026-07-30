@@ -1,0 +1,25 @@
+name: Ejecucion de Pruebas de API REST
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener codigo del repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas de API con Cypress
+        run: npx cypress run
